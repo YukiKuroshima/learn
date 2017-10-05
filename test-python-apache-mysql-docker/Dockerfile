@@ -7,10 +7,13 @@ RUN sudo a2dismod mpm_event
 RUN sudo a2enmod mpm_prefork cgi
 RUN sudo rm /etc/apache2/sites-enabled/000-default.conf
 COPY ./000-default.conf /etc/apache2/sites-enabled/000-default.conf
-RUN sudo service apache2 restart
-WORKDIR /usr/src/app
+
+WORKDIR /var/www/test
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
+RUN sudo chmod 755 ./config.sh
+VOLUME ./app
 
-CMD [ "python", "./local.py" ]
+CMD ["./config.sh"]
+CMD [ "python", "./app/local.py" ]
