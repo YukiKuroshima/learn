@@ -16,4 +16,4 @@ RUN sudo chmod 755 ./config.sh
 VOLUME ./app
 
 CMD ["./config.sh"]
-CMD [ "python", "./app/local.py" ]
+CMD [ "python", "local.py" ]
